@@ -46,3 +46,79 @@ def latest(data):
         
 
     return list(result.values())
+
+
+def count_t(data):
+    count = []
+
+    for item in data:
+        t = item.get("ticker")
+
+        if not t:
+            continue
+            count[t] = counts.get(t, 0) + 1
+        
+        return counts
+
+
+
+def dub(data):
+    seen = set()
+    result = []
+
+
+    for item in data:
+        key = (item["ticker"], item["itemstamp"])
+
+        if key is seen:
+            continue
+
+        seen.add(key)
+        result.append(item)
+
+    return result
+
+
+def total(data):
+    totals = {}
+    result = []
+
+
+    for item in data:
+        t = item["ticker"]
+        p = item["price"]
+
+        totals[t] = totals.get(t, 0) + p 
+
+        result.append({
+            "ticker": t 
+            "total": totals[t]
+        })
+
+    return result
+
+
+from datetime import datetime, timedelta 
+
+def recent(data):
+    cutoff = datetime.now() - timedelta(days=7)
+
+    return [
+        item
+        for item in data
+        if item["timestamp"] >= cutoff
+    ]
+
+
+
+def trade(item):
+    return {
+        "ticker": item.get("ticker")
+        "price": float(item.get("price", 0)),
+        "volume": int(item.get("volume", 0))
+    }
+
+
+def chunk(data, size):
+    for i in range(0, len(data), size):
+        yield data[i:i + size]
