@@ -1,1 +1,1 @@
-# new learning program
+# A LCW sequence coding program
