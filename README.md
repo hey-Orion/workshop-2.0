@@ -1,1 +1,1 @@
-# A LCW sequence coding program
+# Code-first learning program
