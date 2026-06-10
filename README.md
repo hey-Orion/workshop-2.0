@@ -1,1 +1,1 @@
-# new program
+# Code-first learning program
