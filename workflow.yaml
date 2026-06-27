@@ -1,0 +1,18 @@
+development:
+  host: "localhost"
+  port: 5432
+  db: "raw_db"
+  creds:
+    username: ""
+    pass: ""
+
+
+production:
+  host: "prod-db-eu-west.rds.amazonaws.com"
+  port: 5432
+  db: "main_db"
+  creds:
+    username: ""
+    pass: ""
+
+
