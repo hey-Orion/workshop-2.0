@@ -96,3 +96,6 @@ Question 1: What does the special pipeline character sequence $? represent in a 
 
 Question 2: What is the difference between writing output data to a file using a single angular bracket > versus using a double angular sequence >>?
 
+
+
+done
