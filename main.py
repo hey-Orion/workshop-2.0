@@ -1,4 +1,3 @@
-i took help writing this 
 from pydantic import BaseModel, Field, ValidationError
 from typing import Literal 
 
