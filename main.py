@@ -9,7 +9,7 @@ class logpayload(BaseModel):
 
 raw_data = {
     "event_id": 105,
-    "environment": "invalid_env_name",  # Invalid choice!
+    "environment": "invalid_env_name", 
     "environment_url": "https://api.eu-ops.net",
     "metrics": {"cpu_usage": 84.5, "memory_usage": 61.2}
 }
