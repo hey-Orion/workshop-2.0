@@ -41,3 +41,4 @@ SELECT servers.server_name, error_logs.error_msg
 FROM servers
 inner JOIN error_logs why a inner join 
 on servers.server_id = error_logs.server_id;
+
