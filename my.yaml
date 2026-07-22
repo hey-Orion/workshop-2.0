@@ -1,0 +1,13 @@
+name: me
+age: 20
+sex: male
+height: 178.5
+topics:
+  - tech
+  - bikes
+  - cube
+  - chess
+playlist:
+  music:
+    like: suger
+    price: 10
