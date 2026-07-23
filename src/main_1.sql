@@ -1,3 +1,4 @@
+
 select p.category, sum(o.total_amount) as revenue
 from orders o 
 join product p on o.product_id = p.product_id
