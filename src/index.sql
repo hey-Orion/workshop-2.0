@@ -1,4 +1,3 @@
-
 select p.category, sum(o.total_amount) as revenue
 from orders o 
 join product p on o.product_id = p.product_id
@@ -6,11 +5,17 @@ where o.status = "completed"
 group by p.category
 order by revenue desc;
 
+ok i understand this on my quest why import only one table 
+
+
 select customer_id, count(*) as order_count
-from orders
-where status = "completed"
+from orders 
+where status = "sold"
 group by customer_id
 having count(*) > 5;
+
+just explain this line to me having count(*) > 5;
+
 
 with ranked as (
     select
@@ -19,15 +24,19 @@ with ranked as (
         updated_id,
         row_number() over (
             partition by ticket_id
-            order by updated_id desc
+            order by updated_id desc 
         ) as rn 
-    from ticket_update
+    from ticket_table
 )
+i understand this much very well.
+
 select ticket_id, status, updated_id
 from ranked 
 where rn = 1;
+why is this part here explain
 
-# this needs to be explaned 
+
+# this needs to be fully explaned in detaial
 WITH signups AS (
     SELECT user_id, created_at FROM users
 ),
@@ -45,15 +54,20 @@ FROM signups s
 LEFT JOIN activated a ON s.user_id = a.user_id
 LEFT JOIN paid p ON s.user_id = p.user_id;
 
-SELECT e.name AS employee, m.name AS manager
-FROM employees e
-JOIN employees m ON e.manager_id = m.employee_id
-WHERE e.salary > m.salary;
 
-SELECT
-    DATE_TRUNC('month', u.signup_date) AS cohort_month,
-    COUNT(DISTINCT u.user_id) AS cohort_size,
-    COUNT(DISTINCT CASE WHEN u.is_active THEN u.user_id END) AS still_active
-FROM users u
-GROUP BY DATE_TRUNC('month', u.signup_date)
-ORDER BY cohort_month;
+select e.name as employee, m.name as manager
+from employees e 
+join employees m on e.manager_id = m.employee_id
+where e.salary > m.salary;
+would need an exp employee_id and manager_id was not selected how can we use it and tell me this means employees with more salary right 
+where e.salary > m.salary;
+
+
+# this needs to be fully explaned in detaial
+select  
+    DATE_TRUNC("month", u.signup_date) as cohort_month,
+    count(DISTINCT u.user_id) as cohort_size,
+    count(DISTINCT CASE WHEN u.is_active then u.user_id end) as still_active
+from users u 
+group by DATE_TRUNC("month", u.signup_date)
+order by cohort_month;
