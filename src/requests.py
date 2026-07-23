@@ -24,6 +24,8 @@ if pokemon_info:
 else:
     print("Pokémon not found.")
 
+
+
 response = requests.get(
     "https://api.example.com/v1/data",
     timeout=10
