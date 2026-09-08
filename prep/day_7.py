@@ -29,7 +29,6 @@ def insert_customers(customer_data: dict):
         session.close()
 
 
-
 # pytest
 
 import pytest
