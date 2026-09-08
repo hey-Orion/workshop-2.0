@@ -17,10 +17,10 @@ class Customer(Base):
 def init_db():
     Base.metadata.create_all(bind=engine)
 
-def insert_customers(customer_date: dict):
+def insert_customers(customer_data: dict):
     session = SessionLocal()
     try:
-        new_customer = Customer(**customer_date)
+        new_customer = Customer(**customer_data)
         session.add(new_customer)
         session.commit()
     except Exception:
