@@ -2,6 +2,8 @@ Track 2 — Discussion: Mixed review, round 2
 
 Explain what a DAG is and why it has to be acyclic.
 
+
+
 What's a bind mount?
 
 What's the difference between a fact table and a dimension table?
