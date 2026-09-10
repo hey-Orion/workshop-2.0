@@ -14,15 +14,14 @@ fact table is what keeps the bussines records mostly int, float or bool and dime
 
 Why use Docker Compose instead of running multiple docker run commands manually?
 
-most becous of automating and running contaners in order 
+mostly becous of automating and running contaners in order 
 
 What's the difference between main and a feature branch, and why do teams avoid committing directly to main?
 
-
+featured branches are generally used for testing changes before pushing them too main branch
 
 What's the difference between a data warehouse, a data lake, and a lakehouse?
-
-
+warehouse contanes structured data a lake have rawudata unstructuredaand lakehouse is a combination of both 
 
 
 Track 3 — Two things
