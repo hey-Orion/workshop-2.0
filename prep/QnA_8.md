@@ -21,6 +21,7 @@ What's the difference between main and a feature branch, and why do teams avoid 
 featured branches are generally used for testing changes before pushing them too main branch
 
 What's the difference between a data warehouse, a data lake, and a lakehouse?
+
 warehouse contanes structured data a lake have rawudata unstructuredaand lakehouse is a combination of both 
 
 
@@ -28,4 +29,11 @@ Track 3 — Two things
 
 Rewrite the 90-second intro — add back Dataflow-Sentinel (one sentence) and what you're looking for (role type, €40k, remote-or-onsite flexible), building on yesterday's feedback.
 
+
+im harsh a data engineer right now im expolring eu/uk oportunites about my backgroud im a self taught data engineer i start from devops then though out my learning curve i shifted to data engineering buecous i found it more enjoyable to work with data.
+and becouse of it i know the basics of devops lifecycle ae well for you to asses my skills this is my portfoilo project Dataflow-Sentinel its a data pipieline project fully automated and deployed  etc (keeping on short on purpos)
+what im loking in the role as good working ours and and my expected salary of 40k 
+
+
 Salary/logistics rehearsal — practice saying your salary range and flexibility clearly, no hedging. Something like: "My baseline is €40k given my current skillset, though I'm flexible depending on the full package. I'm comfortable with remote or on-site." Adjust to your own words, but the goal is stating it plainly, not apologetically.
+
