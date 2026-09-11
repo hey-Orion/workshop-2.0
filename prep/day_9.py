@@ -10,9 +10,9 @@ class Base(DeclarativeBase):
 class Product(Base):
     __tablename__ = "__products__"
 
-    id: Column(Integer, primary_key=True)
-    name: Column(String)
-    price: Column(Float)
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    price = Column(Float)
 
 engine = create_engine("sqlite:///:memory:", echo=False)
 SessionLocal = sessionmaker(bind=engine)
@@ -60,10 +60,10 @@ def run_pipeline(url: str):
 def test_valid_product_schema():
     payload = {"id": 1, "name": "Keyboard", "price": 120.50}
     record = ProductSchema.model_validate(payload)
-    assert record.name == "keyboard"
+    assert record.name == "Keyboard"
     assert record.price == 120.50
 
 def test_invalid_product_schema():
     payload = {"id": "not_a_number", "name": "Keyboard", "price": "not_a_number"}
-    with pytest.raise(ValidationError):
+    with pytest.raises(ValidationError):
         ProductSchema.model_validate(payload)
