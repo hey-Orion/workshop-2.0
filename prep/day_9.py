@@ -3,6 +3,7 @@ from pydantic import BaseModel, ValidationError
 from sqlalchemy import Column, Float, Integer, String, create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 import pytest
+import pandas as pd
 
 class Base(DeclarativeBase):
     pass
@@ -67,3 +68,43 @@ def test_invalid_product_schema():
     payload = {"id": "not_a_number", "name": "Keyboard", "price": "not_a_number"}
     with pytest.raises(ValidationError):
         ProductSchema.model_validate(payload)
+
+
+with customer_spending as (
+    select
+        customer_id,
+        sum(amount) as total_spend
+    from transactions
+    group by customer_id
+)
+select
+    customer_id,
+    total_spend
+from customer_spending
+order by total_spend desc 
+limit 3;
+
+
+def process_order_data(df: pd.DataFrame) -> pd.Series:
+    # 1. Clean order_date and convert to datetime (drop invalid rows)
+    df['order_date'] = pd.to_datetime(df['order_date'], errors='coerce')
+    
+    # 2. Clean amount column: strip whitespace, remove '$', convert to numeric
+    df['amount'] = (
+        df['amount']
+        .astype(str)
+        .str.replace('$', '', regex=False)
+        .str.strip()
+    )
+    df['amount'] = pd.to_numeric(df['amount'], errors='coerce')
+    
+    # 3. Drop missing critical fields
+    clean_df = df.dropna(subset=['order_date', 'amount']).copy()
+    
+    # 4. Extract Year-Month for aggregation
+    clean_df['month'] = clean_df['order_date'].dt.to_period('M')
+    
+    # 5. Compute monthly revenue
+    monthly_revenue = clean_df.groupby('month')['amount'].sum()
+    
+    return monthly_revenue
