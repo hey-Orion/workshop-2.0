@@ -13,4 +13,3 @@ Track 3 — Salary rehearsal + first full mock
 
 Write your own salary/logistics answer, in your own words, stating €40k and remote/on-site flexibility plainly, no hedging.
 First full mock interview attempt — combine your intro, one anchor story (your choice), and one hard question, answered back-to-back as if in a real conversation, no long pauses between them. This is a dry run for Day 10's full mock.
-
