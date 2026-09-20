@@ -1,49 +1,95 @@
 orders(order_id, customer_id, order_date, amount, status)
 customers(customer_id, name, country, signup_date)
 
-
-select 
-    order_id, 
-    customer_id, 
-    order_date, 
+-- Sequential Order Amount Comparison (LAG)
+SELECT
+    order_id,
+    customer_id,
+    order_date,
     amount,
-    lag(amount) over (partition by customer_id order by order_date) as previous_order_amount 
-from orders;
+    LAG(amount) OVER (
+        PARTITION BY customer_id 
+        ORDER BY order_date ASC, order_id ASC
+    ) AS previous_order_amount
+FROM orders;
 
-select
-    c.name,
-    sum(o.amount) as total_amount,
-    dense_rank() over (order by sum(o.amount) desc) as customer_rank
-from customers c 
-join orders o on c.customer_id = o.customer_id
-group by c.name; 
 
-select 
-    order_id, 
-    customer_id, 
-    amount,
-    amount - avg(amount) over (partition by customer_id) as deff_avg 
-from orders ;
-
-with customer_table as (
-    select 
-        customer_id,
-        sum(amount) as total_amount 
-    from orders 
-    group by customer_id
+-- Customer Revenue Ranking
+WITH customer_aggregates AS (
+    SELECT  
+        c.customer_id,
+        c.name,
+        SUM(o.amount) AS total_spend
+    FROM customers c 
+    JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.customer_id, c.name
 )
-select customer_id, total_amount
-from customer_table
-where total_amount > (select avg(total_amount) from customer_table);
+SELECT
+    name,
+    total_spend,
+    DENSE_RANK() OVER (
+        ORDER BY total_spend DESC, customer_id ASC 
+    ) AS customer_rank
+FROM customer_aggregates;
 
-with ranked_orders as (
-    select
+
+-- Deviation from Customer Average Spend
+SELECT
+    order_id,
+    customer_id,
+    amount,
+    AVG(amount) OVER (
+        PARTITION BY customer_id
+    ) AS customer_avg_amount,
+    amount - AVG(amount) OVER (
+        PARTITION BY customer_id
+    ) AS amount_diff
+FROM orders;
+
+
+-- Section B: CTE-Driven Aggregations & Analytical Filtering
+
+-- Above-Average Revenue Customers via CTE
+WITH customer_totals AS (
+    SELECT  
+        c.customer_id,
+        c.name,
+        SUM(o.amount) AS total_amount
+    FROM customers c 
+    JOIN orders o ON c.customer_id = o.customer_id 
+    GROUP BY c.customer_id, c.name 
+),
+global_avg_customer_spend AS (
+    SELECT 
+        AVG(total_amount) AS avg_customer_spend
+    FROM customer_totals
+)
+SELECT
+    ct.customer_id,
+    ct.name,
+    ct.total_amount
+FROM customer_totals ct
+CROSS JOIN global_avg_customer_spend g
+WHERE ct.total_amount > g.avg_customer_spend;
+
+
+-- Second-Highest Order Amount per Customer
+WITH ranked_orders AS (
+    SELECT
         customer_id,
         order_id,
+        order_date,
         amount,
-        dense_rank() over (partition by customer_id order by amount desc) as rnk
-    from orders 
+        DENSE_RANK() OVER (
+            PARTITION BY customer_id
+            ORDER BY amount DESC, order_id ASC 
+        ) AS rnk 
+    FROM orders 
 )
-select customer_id, order_id, amount 
-from ranked_orders
-where rnk = 2;
+SELECT
+    customer_id,
+    order_id,
+    order_date,
+    amount
+FROM ranked_orders
+WHERE rnk = 2;
