@@ -21,16 +21,3 @@ SELECT
         4
     ) as daily_return_pct
 FROM {{ ref('stg_market_data') }}
-
-
-SELECT 
-    symbol,
-    trade_date,
-    daily_return_pct,
-    round(
-        stddev(daily_return_pct) over (
-            partition by symbol
-            order by trade_date
-            rows between 6 preceding and current row
-        ), 4
-    ) as vol
