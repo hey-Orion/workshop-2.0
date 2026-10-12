@@ -64,6 +64,24 @@ def clean_pipeline(nested_records):
 
 
 
+orders_df['status'] = orders_df['status'].str.strip().str.lower()
+orders_df = orders_df.dropna(subset=['amount'])
+orders_df = orders_df.sort_value('order_date').drop_duplicates(subset='order_id', keep='last')
+
+order_df['rolling_avg'] = (
+    order_df.sort_value('order_date')
+    .groupby('customer_id')['amount']
+    .transform(lambda s: s.shift().rolling(3, min_periods=1).mean())
+)
+
+order_df['deviation_flag'] = (
+    (order_df['amount'] - order_df['rolling_avg']).abs() / order_df
+    ['rolling_avg'] > 0.5
+)
+
+
+
+
 
 
 @pytest.fixture
