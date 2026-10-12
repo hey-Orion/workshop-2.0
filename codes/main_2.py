@@ -17,12 +17,6 @@ class Customers(Base):
 
 
 
-
-
-
-
-
-
 @pytest.fixture
 def db_session():
     session = create_test_session()
