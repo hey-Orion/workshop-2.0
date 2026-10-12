@@ -80,6 +80,12 @@ order_df['deviation_flag'] = (
 )
 
 
+merged = order_df.merge(order_item_df, on='order_id',
+how='left')
+
+revenue_by_order = (
+
+)
 
 
 
