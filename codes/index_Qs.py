@@ -75,27 +75,19 @@ def merge_records(dict1: Dict[Any, Dict[str, Any]], dict2: Dict[Any, Dict[str, A
 
 
 def clean_and_flag_orders(df: pd.DataFrame) -> pd.DataFrame:
-    # 1. Clean status strings (strip whitespace, proper capitalization)
     df['status'] = df['status'].astype(str).str.strip().str.title()
-    
-    # Ensure correct datetime sorting order
     df['order_date'] = pd.to_datetime(df['order_date'])
     df = df.sort_values(by=['customer_id', 'order_date'])
-    
-    # 2. Deduplicate keeping the latest row per order ID
+
     df = df.drop_duplicates(subset=['order_id'], keep='last')
-    
-    # 3. Calculate rolling 3-order average excluding current order
-    # shift(1) offsets the window so the current order isn't factored into its own average
+
     df['rolling_avg_3'] = df.groupby('customer_id')['amount'].transform(
         lambda x: x.shift(1).rolling(window=3, min_periods=1).mean()
     )
-    
-    # 4. Flag orders deviating more than 50% from rolling average
+
     df['is_deviating'] = np.where(
         df['rolling_avg_3'].notna() & (df['rolling_avg_3'] > 0),
         abs(df['amount'] - df['rolling_avg_3']) / df['rolling_avg_3'] > 0.5,
         False
     )
-    
-    return df
+    return df 
