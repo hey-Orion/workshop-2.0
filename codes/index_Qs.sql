@@ -123,3 +123,24 @@ select
 from ranked_customers
 where spend_quintile = 1 
 order by total_spend desc;
+
+
+
+with lagged_readings as (
+    select
+        sensor_id,
+        reading_time,
+        lag(reading_time) over (
+            partition by sensor_id
+            order by reading_time
+        ) as prev_reading_time
+    from sensor_readings
+)
+select
+    sensor_id,
+    prev_reading_time as gap_start,
+    reading_time as gap_end,
+    (reading_time = prev_reading_time) as gap_duration
+from lagged_readings
+where prev_reading_time in not null 
+   and (reading_time - prev_reading_time) > interval '1 hour':
