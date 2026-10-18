@@ -69,3 +69,96 @@ url = 'https://api.github.com'
 response = requests.get(url, timeout=5)
 response.raise_for_status()
 
+print(response.status_code)
+
+result = response.json()
+print(result)
+
+params = {"q": "python"}
+headers = {"U-A": "......", "A": "....."}
+response = requests.get("url", params=params, headers=headers)
+
+post_data = {"name": "hada", "id": "ascf"}
+response = requests.post("url", json=post_data, headers=headers)
+
+
+import requests
+
+try:
+    response = requests.get("url", timeout=5)
+    response.raise_for_status()
+    response.json()
+except requests.exceptions.RequestException as e:
+    print("error")
+
+
+import requests
+
+session = requests.Session()
+
+session.headers.update({"Authorization": "Bearer token123"})
+
+response1 = session.get("url", timeout=5)
+response2 = session.get("url", timeout=5)
+
+
+from typing import Optional
+from pydantic import BaseModel, EmailStr
+
+class Customer(BaseModel):
+    id: int
+    name: str
+    email: Optional[EmailStr] = None
+
+customer = Customer(id=1, name="hada")
+print(customer)
+
+from pydantic import BaseModel, ValidationError
+
+class Customer(BaseModel):
+    id: int 
+    name: str 
+
+try:
+    bad_customer = Customer(id="sd", name="")
+except ValidationError as e:
+    print(".....")
+
+
+def test_sq():
+    assert square(3) == 9
+
+def test_count_active_orders():
+    orders = [
+        {"status": "active"},
+        {"status": "pending"},
+        {"status": "active"}
+    ]
+
+    result = count_active_orders(orders)
+    assert result == 2 
+
+def test_div():
+    with pytest.raise(ZeroDivisionError):
+        _ = 1 / 0
+
+    
+from sqlalchemy import create_engine
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
+
+engine = create_engine("sqlite:///test.db")
+
+class Base(DeclarativeBase):
+    pass 
+
+class Customer(Base):
+    __tablename__ == "customers"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str]
+
+with Session(engine) as session:
+    new_cus = Customer(name="yo")
+    session.add(new_cus)
+    session.commit()
+    
