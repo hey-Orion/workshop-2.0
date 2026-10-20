@@ -5,3 +5,6 @@ orders = [
 ]
 # orders_df = a Pandas DataFrame created from the orders list above
 
+name = "hada"
+print(name)
+
