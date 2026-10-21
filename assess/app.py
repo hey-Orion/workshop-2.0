@@ -8,3 +8,9 @@ orders = [
 name = "hada"
 print(name)
 
+for i in range(1, 10):
+print(i)
+
+def square(n):
+    return n * n 
+
