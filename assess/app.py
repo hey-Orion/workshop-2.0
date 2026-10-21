@@ -158,3 +158,4 @@ with Session(engine) as session:
     new_cus = Customer(name="yo")
     session.add(new_cus)
     session.commit()
+
