@@ -59,3 +59,4 @@ join orders o on c.customer_id = o.customer_id
 where o.status = 'completed'
 group by c.country
 having count(o.order_id) > 5;
+
