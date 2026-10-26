@@ -24,3 +24,23 @@ def Validate_orders(data: dict):
             field = "->".join(str(loc) for loc in error["loc"])
             message = error["msg"]
             print(".......")
+
+
+Add a validator so status is stripped of whitespace and lowercased before validation. Reject it if it’s empty after stripping.
+
+from typing import Literal
+from pydantic import BaseModel, Field, field_validator
+
+class Order(BaseModel):
+    id: int 
+    amount: float = Field(gt=0.0)
+    status: Literal["pending", "completed", "cancelled"]
+
+    @field_validator("status", mode="before")
+    @classmethod
+    def clean_status(cls, v: str) -> str:
+        if isinstance(v, str):
+            v = v.strip().lower()
+            if not v:
+                raise ValueError(",,,")
+        return v 

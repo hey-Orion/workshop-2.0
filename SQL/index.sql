@@ -6,6 +6,15 @@ products(product_id, name, category)
 employees(emp_id, name, manager_id, salary, dept_id)
 logins(user_id, login_date)
 
+Show each customer’s name and total completed spend, including customers with no orders (their total should show as 0).
+
+select
+    c.name,
+    coalesce(sum(case when o.status = "completed" then o.amount else 0 end), 0) as TCS
+from customers c 
+left join orders o on c.customer_id = o.customer_id
+group by c.customer_id, c.name;
+
 
 Find customers who have never placed an order.
 
