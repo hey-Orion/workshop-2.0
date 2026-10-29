@@ -43,7 +43,7 @@ from pydantic import BaseModel, Field
 class Order(BaseModel):
     id: int
     amount: float = Field(gt=0.0)
-    status: Literal["p", 'c', 'ca']
+    status: Literal["pending", "completed", "cancelled"]
 
 from pydantic import ValidationError
 
