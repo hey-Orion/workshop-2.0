@@ -1,9 +1,12 @@
-def total_c(orders):
-    total = 0 
-    for order in orders:
-        if order["status"] == "completed":
-            total += order["amount"]
-    return total
+def filter_and_double(numbers):
+    result = []
+    for num in numbers:
+        if num > 10:
+            result.append(num *= 2)
+    return result
 
-avg = orders_df[orders_df["status"] == "completed"]["amount"].mean()
+result_df = salary_df[salary_df["salary"] > 50000 ]["salary"].mean()
+
+def get_evens(numbers):
+    return [num for num in numbers if num % 2 == 0]
 
