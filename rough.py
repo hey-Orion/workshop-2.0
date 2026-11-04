@@ -1,38 +1,48 @@
-from typing import Literal
-from pydantic import BaseModel, Field
+from typing import Optional, Literal, List
+from typing_extensions import Self
+from datetime import datetime, date 
+from pydantic import BaseModel, ConfigDict, EmailStr, ValidationError, Field, field_validator, model_validator
+
 
 class Order(BaseModel):
     id: int 
     amount: float = Field(gt=0.0)
-    status: Literal["pending", "completed", "cancelled"]
+    status: Literal["p", "c", "ca"]
 
-def Validate_orders(data: dict):
+def validator(data: dict):
     try:
         order = Order(**data)
         print(order)
         return order 
     except ValidationError as e:
-        for error as e.errors:
-            filed = "->".join(str(loc) for loc in error["loc"])
-            message = error["msg"]
-            print('..')
+        for error in e.errors():
 
-from typing import Literal
-from pydantic import BaseModel, Field, field_validator
+        field = " -> ".join(str(loc) for loc in error["loc"])
+        message = error["msg"]
+        print(f"error '{field}': {message}")
 
-class Order(BaseModel):
-    id: int 
-    amount: float = Field(gt=0.0)
-    status: Literal["pending", "completed", "cancelled"]
+@field_validator("status", mode="before")
+@classmethod
 
-    @field_validator("status", mode="befre")
-    @classmethod
-    def clean_status(cls, v: str) -> str:
-        if isinstance(v, str):
-            v = v.strip().lower()
-            if not v:
-                raise ValueError('..')
-        return v 
+def clean_status(cls, v: str) -> str:
+    if isinstance(v, str):
+        v = v.strip().lower()
+        if not v:
+            raise ValueError("mag")
+    return v 
 
+class DateRange(BaseModel):
+    start_date: date 
+    end_date: date 
 
+    @model_validator(mode="after")
+    def date_validator(self) -> self:
+        if self.end_date < self.start_date:
+            raise ValueError("msg")
+        return self 
+
+def NoteModel(BaseModel):
+    note: Optional[str] = None 
+    tags: List[str] = Field(default_factory=list)
+    created_at: datetime = Field(default_factory=datetime.now)
 

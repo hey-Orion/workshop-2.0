@@ -45,7 +45,7 @@ class DateRange(BaseModel):
 
 class NoteModel(BaseModel):
     note: Optional[str] = None
-    tags: List[str] = Field(default_factory=list) what is default_factory and why tags are list
+    tags: List[str] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=datetime.now)
 
 
