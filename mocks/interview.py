@@ -65,3 +65,81 @@ class Tag(BaseModel):
     name: str
 
 
+import pytest
+
+def test_add():
+    assert 1 + 1 == 2 
+
+
+import requests 
+
+response = requests.get("https://api.example.com/data")
+data = response.json()
+
+
+from sqlalchemy import create_engine 
+
+
+def test_value_error():
+    with pytest.raise(ValueError):
+        int("abc")
+    
+
+import requests 
+
+response = requests.get("https://api.example.com/data")
+if response.status_code == 200:
+    data = response.json()
+
+
+from sqlalchemy import create_engine
+
+engine = create_engine("sqlite:///:memory:")
+
+
+def test_len():
+    assert len("data") == 4
+
+
+import requests 
+
+params = {"q": "python"}
+
+response = requests.get("https://api.example.com/data", params=params)
+data = response.json()
+
+
+from sqlalchemy import create_engine, Column, Integer, String
+
+
+@pytest.fixture
+def sample_data():
+    return [1, 2, 3]
+
+
+import requests 
+
+headers = {"Authorization": "Bearer my_token"}
+
+response = requests.get("https://api.example.com/data", headers=headers)
+data = response.json()
+
+
+from sqlalchemy.orm import declarative_base 
+
+Base = declarative_base()
+
+
+class User(Base):
+    __tablename__ = "users"
+
+
+import requests 
+
+response = requests.get("https://api.example.com/data")
+response.raise_for_status()
+data = response.json()
+
+
+def test_sample_data(sample_data):
+    assert len(sample_data) == 3
