@@ -5,17 +5,14 @@ What are Bronze, Silver and Gold layers, and why use them?
 we need this arcitucherso we can isolate then proceses making it easy to debug and find errors in the pipeline 
 the bronze layer contanes the row data, the silver contanes the cleaned and filtered data and the gold layer have the final product 
 
-
 What’s the difference between a Docker image and a container?
 
 the docker contaner runs on the images 
 and images is a templete for multipal comtaners you can run multipal contaners with a single images 
 
-
 What does “idempotent” mean for a pipeline? 
 
 idempotent mean for a pipeline if it runs multiple times it should give the same result with no duplicats we can prevent that by using uniques values. 
-
 
 What is a DAG in Airflow?
 
@@ -31,3 +28,4 @@ so etl stands for extract transform and load
 in extract we collect or get the data from an api.
 in transform we clean and transform the data feched by the extrach layer without saving it 
 the we take that cleaned data and load it in our db in the load layer 
+
