@@ -1,6 +1,3 @@
-orders(order_id, customer_id, order_date, amount, status)
-customers(customer_id, name, country)
-
 select 
     name,
     customer_id
@@ -28,4 +25,3 @@ select
 from customers c 
 left join orders o on c.customer_id = o.customer_id
 where o.order_id IS NULL;
-

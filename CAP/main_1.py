@@ -1,5 +1,3 @@
-import pandas as pd 
-
 orders_df["status"].value_counts()
 
 orders_df.loc[orders_df["amount"] > 200, ["order_id", "order_date"]]
