@@ -1,6 +1,5 @@
 select 
-    name,
-    customer_id
+    name
 from customers
 where country = 'India'
 order by name desc;
