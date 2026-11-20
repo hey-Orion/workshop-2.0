@@ -27,4 +27,34 @@ def count_by_status(orders):
         counts[status] = counts.get(status, 0) + 1 
     return counts
 
+needed code for this one 
+import pytest
+
+@pytest.mark.parametrize(
+    "orders, threshold, expected",
+    [
+        (
+            [{"id": 1, "amount": 50}, {"id": 2, "amount": 250}, {"id": 3, "amount": 120}],
+            100,
+            [{"id": 2, "amount": 250}, {"id": 3, "amount": 120}],
+        ),
+        (
+            [{"id": 1, "amount": 20}, {"id": 2, "amount": 75}],
+            100,
+            [],
+        ),
+        (
+            [],
+            100,
+            [],
+        ),
+    ],
+    ids=["some_match", "none_match", "empty_list"],
+)
+def test_get_big_orders(orders, threshold, expected):
+    assert get_big_orders(orders, threshold) == expected
+
+
+def test_get_total_empty():
+    assert get_total([]) == 0
 
