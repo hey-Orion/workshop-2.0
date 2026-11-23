@@ -52,5 +52,7 @@ def test_get_small_orders(orders, threshold, expected):
 def test_count_by_customer_empty():
     assert count_by_customer([]) == {}
 
-Qs 
+Qs --
+What is a DAG? (two sentences, in your own words).
+
 
