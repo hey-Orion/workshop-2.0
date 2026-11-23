@@ -52,7 +52,25 @@ def test_get_small_orders(orders, threshold, expected):
 def test_count_by_customer_empty():
     assert count_by_customer([]) == {}
 
+
 Qs --
 What is a DAG? (two sentences, in your own words).
 
+in ariflow a dag defines a workflow of tasks and dependencise between them specfing with step runs 
+before others becouse its acycle there is no loop so it runs in finite order without looping 
 
+What is a primary key? (two sentences, in your own words).
+
+a primary key is a column of unique vaiues to idintify each row of the table
+essential for data integrity, deduplication, safe joins, and upserts 
+
+Name two ways to make a load idempotent (two sentences, in your own words).
+
+insert overwriting  
+so it overwrites the data rather then dublactiong it 
+
+and upserts using primary key so every row is unique
+
+ETL vs. ELT: which is your own project, and why? (two sentences, in your own words).
+
+i use elt (extract, load, tranform) in my project becouse i wanted to save the cleaned data for future analasys 
