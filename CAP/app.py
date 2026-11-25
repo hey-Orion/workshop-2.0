@@ -1,5 +1,3 @@
-Here is the complete reference sheet for **Questions 1 through 14** using Pydantic v2 conventions and the market-data theme.
-
 ### Basics (Q1–Q5)
 
 **1. Define a model `Tick` with `ticker: str`, `close: float`, and `volume: int`.**
