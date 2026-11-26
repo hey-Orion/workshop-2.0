@@ -69,7 +69,7 @@ session.headers.update({"Authorization": "Bearer abc123"})
 response = requests.get("https://api.example.com/prices", timeout=5)
 
 
-import requests
+import requests code
 
 response = requests.get("https://api.example.com/prices", timeout=5)
 print(response.headers.get("Content-Type"))
