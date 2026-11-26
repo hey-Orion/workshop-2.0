@@ -75,3 +75,85 @@ response = requests.get("https://api.example.com/prices", timeout=5)
 print(response.headers.get("Content-Type"))
 print(response.text)
 
+
+import logging code 
+from typing import Any 
+import requests
+from requests.exceptions import RequestException
+
+logger = logging.getLogger(__name__)
+
+def fetch_prices(ticker: str) -> dict[str, Any] | list[Any] | None:
+    try:
+        response = requests.get(
+            "https://api.example.com/prices",
+            params={"ticker": ticker},
+            timeout=5,
+        )
+        response.raise_for_status()
+        return response.json()
+    except exceptions as e:
+        logger.error("Failed to fetch prices for %s: %s", ticker, exc)
+        return None
+
+
+import time code 
+import requests
+from requests.exceptions import ConnectionError, Timeout
+
+backoff_delays = [1, 2, 4]
+max_retries = len(backoff_delays)
+
+for attemps in range(max_retries + 1):
+    try:
+        response = requests.get("https://api.example.com/prices", timeout=5)
+        response.raise_for_status()
+        data = response.json()
+        break
+    except (ConnectionError, Timeout):
+        if attemps == max_retries:
+            raise
+        time.sleep(backoff_delays[attemps])
+
+
+import requests code
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+retry_strategy = Retry(
+    total=3,
+    backoff_factor=1,
+    status_factor=[429, 500, 502, 503],
+    allowed_methods=["GET"],
+)
+
+adapter = HTTPAdapter(max_retries=retry_strategy)
+session = requests.Session()
+session.mount("https://", adapter)
+session.mount("http://", adapter)
+
+response = session.get("https://api.example.com/prices", timeout=5)
+
+
+from typing import Any code 
+import requests
+
+
+def fetch_all(ticker: str) -> list[Any]:
+    all_data: list[Any] = []
+    page: int | None = 1
+
+    while page is not None:
+        response = requests.get(
+            "https://api.example.com/prices",
+            params={"ticker": ticker, "page": page},
+            timeout=5,
+        )
+        response.raise_for_status()
+        payload = response.json()
+
+        all_data.extend(payload.get("data", []))
+        page = payload.get("next_page")
+
+    return all_datat requests
+
