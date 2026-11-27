@@ -1,19 +1,5 @@
-What is the difference between an Engine, a Connection and a Session?
+Why mock external APIs in unit tests, and what is the difference between a unit test and an integration test?
 
 
 
-Why does an upsert make a Postgres load idempotent?
-
-
-
-
-
-
-from datetime import datetime
-
-from sqlalchemy import (create_engine, desc,
-    Index, Column, DateTime, Integer, String)
-
-from sqlalchemy.ext.declarative import declarative_base
-
-from sqlalchemy.orm import sessionmaker
+What three kinds of cases would you test for validate_records, and why?
